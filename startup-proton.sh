@@ -8,7 +8,9 @@ if [[ ${IP} == "" ]]; then
   IP=$(hostname -i)
 fi
 
-zone=$(curl {ECS_CONTAINER_METADATA_URI_V4}/task | jq .AvailabilityZone)
+az=$(curl ${ECS_CONTAINER_METADATA_URI_V4}/task | jq .AvailabilityZone)
+
+zone="${az: -1}"
 
 case "${zone}" in
   a)
