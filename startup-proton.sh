@@ -8,21 +8,26 @@ if [[ ${IP} == "" ]]; then
   IP=$(hostname -i)
 fi
 
-az=$(curl ${ECS_CONTAINER_METADATA_URI_V4}/task | jq -r .AvailabilityZone)
+az=$(curl -s ${ECS_CONTAINER_METADATA_URI_V4}/task | jq -r .AvailabilityZone)
 
 zone="${az: -1}"
 
 case "${zone}" in
   a)
     color=Crimson
+    ;;
   b)
     color=CornflowerBlue
+    ;;
   c) 
     color=LightGreen
+    ;;
   d)
     color=Yellow
+    ;;
   *)
     color=White
+    ;;
 esac
 
 export CODE_HASH="$(cat code_hash.txt)"
